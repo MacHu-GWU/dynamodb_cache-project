@@ -45,7 +45,7 @@ class DynamodbTable(DynamodbBackendRecord):
 # only uncomment this once
 # DynamodbTable.create_table(wait=True)
 
-@pytest.mark.skipif("CI" in os.environ)
+@pytest.mark.skipif("CI" in os.environ, reason="no credential")
 @pytest.mark.parametrize(
     "cache",
     [
@@ -68,7 +68,7 @@ def test_backend(cache: AbstractCache):
     assert cache.get("alice") is None
 
 
-@pytest.mark.skipif("CI" in os.environ)
+@pytest.mark.skipif("CI" in os.environ, reason="no credential")
 @pytest.mark.parametrize(
     "cache,data",
     [

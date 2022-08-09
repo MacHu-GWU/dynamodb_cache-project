@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import os
-import time
 import pytest
-
-import json
-import dataclasses
 
 import pynamodb.models
 
-from dynamodb_cache.abstract import AbstractCache
 from dynamodb_cache.backend.in_memory import (
     JsonDictInMemoryCache,
     JsonListInMemoryCache,
@@ -33,7 +28,7 @@ class DynamodbTable(DynamodbBackendRecord):
         billing_mode = pynamodb.models.PAY_PER_REQUEST_BILLING_MODE
 
 
-@pytest.mark.skipif("CI" in os.environ)
+@pytest.mark.skipif("CI" in os.environ, reason="no credential")
 @pytest.mark.parametrize(
     "cache,data",
     [
