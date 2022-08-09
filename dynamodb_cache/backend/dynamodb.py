@@ -41,8 +41,8 @@ class DynamodbBackend(
     ABC,
     T.Generic[VALUE],
 ):
-    def __init__(self, pynamodb_table: T.Type[DynamodbBackendRecord]):
-        self.pynamodb_table = pynamodb_table
+    def __init__(self, dynamodb_table: T.Type[DynamodbBackendRecord]):
+        self.dynamodb_table = dynamodb_table
 
     def _value_to_record(
         self,
@@ -50,7 +50,7 @@ class DynamodbBackend(
         value: VALUE,
         expire: int = 0,
     ) -> DynamodbBackendRecord:
-        return self.pynamodb_table(
+        return self.dynamodb_table(
             key=key,
             value=self._serialize(value),
             expire=expire,
@@ -77,8 +77,8 @@ class DynamodbBackend(
         key: str,
     ) -> T.Optional[VALUE]:
         try:
-            record = self.pynamodb_table.get(key)
-        except self.pynamodb_table.DoesNotExist:
+            record = self.dynamodb_table.get(key)
+        except self.dynamodb_table.DoesNotExist:
             return None
 
         if record.expire:
@@ -94,7 +94,7 @@ class DynamodbBackend(
             return self._record_to_value(record)
 
     def clear(self):
-        self.pynamodb_table.delete_all()
+        self.dynamodb_table.delete_all()
 
 
 class JsonDictDynamodbCache(
