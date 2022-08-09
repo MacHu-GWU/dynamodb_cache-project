@@ -47,7 +47,7 @@ class DynamodbTable(DynamodbBackendRecord):
 @pytest.mark.parametrize(
     "cache",
     [
-        CredentialCache(pynamodb_table=DynamodbTable),
+        CredentialCache(DynamodbTable),
     ]
 )
 def test_backend(cache: AbstractCache):
