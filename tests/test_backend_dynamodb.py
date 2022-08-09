@@ -42,8 +42,10 @@ class DynamodbTable(DynamodbBackendRecord):
         billing_mode = pynamodb.models.PAY_PER_REQUEST_BILLING_MODE
 
 
+# only uncomment this once
 # DynamodbTable.create_table(wait=True)
 
+@pytest.mark.skipif("CI" in os.environ)
 @pytest.mark.parametrize(
     "cache",
     [
@@ -66,6 +68,7 @@ def test_backend(cache: AbstractCache):
     assert cache.get("alice") is None
 
 
+@pytest.mark.skipif("CI" in os.environ)
 @pytest.mark.parametrize(
     "cache,data",
     [

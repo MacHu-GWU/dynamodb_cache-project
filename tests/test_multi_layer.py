@@ -33,6 +33,7 @@ class DynamodbTable(DynamodbBackendRecord):
         billing_mode = pynamodb.models.PAY_PER_REQUEST_BILLING_MODE
 
 
+@pytest.mark.skipif("CI" in os.environ)
 @pytest.mark.parametrize(
     "cache,data",
     [
