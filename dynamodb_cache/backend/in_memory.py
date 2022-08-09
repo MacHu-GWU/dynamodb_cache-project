@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+
+"""
+
 import typing as T
 
 import json
@@ -30,6 +34,11 @@ class InMemoryBackend(
     ABC,
     T.Generic[VALUE],
 ):
+    """
+    Base in memory cache backend. You can customize the behavior by adding
+    custom serializer / deserializer.
+    """
+
     def _value_to_record(
         self,
         key: str,
@@ -87,6 +96,10 @@ class JsonDictInMemoryCache(
     InMemoryBackend[dict],
     AbstractCache[dict],
 ):
+    """
+    A built-in In memory cache designed to store JSON serializable dict.
+    """
+
     def _serialize(self, value: dict) -> bytes:
         return json.dumps(value).encode("utf-8")
 
@@ -98,6 +111,10 @@ class JsonListInMemoryCache(
     InMemoryBackend[list],
     AbstractCache[list],
 ):
+    """
+    A built-in In memory cache designed to store JSON serializable list.
+    """
+
     def _serialize(self, value: list) -> bytes:
         return json.dumps(value).encode("utf-8")
 

@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+
+"""
+
 import typing as T
 from .abstract import AbstractCache
 
@@ -8,7 +12,9 @@ VALUE = T.TypeVar("VALUE")
 
 class MultiLayerCache(T.Generic[VALUE]):
     """
-    combine multiple cache backend together. prefer to use in-memory cache,
+    Combine multiple cache backend together.
+
+    For example, you could define a cache that prefer to use in-memory cache,
     then dynamodb cache.
 
     - Set value logic: update in-memory cache, then dynamodb cache

@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+
+"""
+
 import typing as T
 import json
 
@@ -41,6 +45,10 @@ class DynamodbBackend(
     ABC,
     T.Generic[VALUE],
 ):
+    """
+    Base Dynamodb cache backend. You can customize the behavior by adding
+    custom serializer / deserializer.
+    """
     def __init__(self, dynamodb_table: T.Type[DynamodbBackendRecord]):
         self.dynamodb_table = dynamodb_table
 
@@ -101,6 +109,9 @@ class JsonDictDynamodbCache(
     DynamodbBackend[dict],
     AbstractCache[dict],
 ):
+    """
+    A built-in Dynamodb cache designed to store JSON serializable dict.
+    """
     def _serialize(self, value: dict) -> bytes:
         return json.dumps(value).encode("utf-8")
 
@@ -112,6 +123,9 @@ class JsonListDynamodbCache(
     DynamodbBackend[list],
     AbstractCache[list],
 ):
+    """
+    A built-in Dynamodb cache designed to store JSON serializable list.
+    """
     def _serialize(self, value: list) -> bytes:
         return json.dumps(value).encode("utf-8")
 
