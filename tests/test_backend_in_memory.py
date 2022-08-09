@@ -7,13 +7,14 @@ import pytest
 import json
 import dataclasses
 
+import pynamodb.models
+
 from dynamodb_cache.abstract import AbstractCache
-from dynamodb_cache.backend.dictionary import (
+from dynamodb_cache.backend.in_memory import (
     InMemoryBackend,
     JsonDictInMemoryCache,
     JsonListInMemoryCache,
 )
-
 
 @dataclasses.dataclass
 class Credential:
@@ -92,7 +93,7 @@ if __name__ == "__main__":
         bin_pytest,
         "-s", "--tb=native",
         f"--rootdir={dir_project_root}",
-        "--cov=dynamodb_cache.backend.dictionary",
+        "--cov=dynamodb_cache.backend.in_memory",
         "--cov-report", "term-missing",
         "--cov-report", f"html:{dir_htmlcov}",
         abspath,

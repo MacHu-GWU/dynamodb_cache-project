@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from .dictionary import InMemoryBackend
+from .in_memory import InMemoryBackend
